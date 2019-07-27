@@ -8,8 +8,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using NPost.Services.Routing.Application;
-using NPost.Services.Routing.Infrastructure;
+using NPost.Services.Routing.DTO;
+using NPost.Services.Routing.Queries;
 
 namespace NPost.Services.Routing
 {
@@ -20,13 +20,13 @@ namespace NPost.Services.Routing
                 .ConfigureServices(services => services
                     .AddConvey()
                     .AddWebApi()
-                    .AddApplication()
                     .AddInfrastructure()
                     .Build())
                 .Configure(app => app
                     .UseInfrastructure()
                     .UseDispatcherEndpoints(endpoints => endpoints
-                        .Get("", ctx => ctx.Response.WriteAsync(ctx.RequestServices.GetService<AppOptions>().Name))))
+                        .Get("", ctx => ctx.Response.WriteAsync(ctx.RequestServices.GetService<AppOptions>().Name))
+                        .Get<GetRoute, RouteDto>("route")))
                 .UseLogging()
                 .Build()
                 .RunAsync();

@@ -1,0 +1,5 @@
+@url = http://localhost:5003
+@addresses = ['Street 1', 'Downtown 2', 'Crossing 3']
+
+###
+GET {{url}}/route?addresses={{addresses}}
